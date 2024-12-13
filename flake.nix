@@ -11,27 +11,22 @@
     ...
   }: let
     colors = {
-      black = "#2b3339"; # base00
-      grey = "#323c41"; # base01
-      red = "#7fbbb3"; # base08
-      red_dim = "#e67e80"; # base0E
-      burgundy = "#503946"; # base02
-      yellow = "#83c092"; # base0A
-      yellow_dim = "#fff9e8"; # base07
-      orange = "#d699b6"; # base09
-      orange_dim = "#d699b6"; # base0F
-      orange_bright = "#d699b6"; # base09
-      green = "#dbbc7f"; # base0B
-      green_dim = "#e9e8d2"; # base06
-      blue = "#a7c080"; # base0D
-      blue_dim = "#e69875"; # base0C
-      blush = "#7fbbb3"; # base08
-      cyan = "#e69875"; # base0C
-      cyan_dim = "#a7c080"; # base0D
-      white = "#d3c6aa"; # base05
-      white_dim = "#fff9e8"; # base07
-      beige = "#fff9e8"; # base07
-      vanilla_pear = "#d3c6aa"; # base05
+      base00 = "#E3EFEF";
+      base01 = "#C9DBDC";
+      base02 = "#B0C5C8";
+      base03 = "#98AFB5";
+      base04 = "#8299A1";
+      base05 = "#6D828E";
+      base06 = "#5A6D7A";
+      base07 = "#485867";
+      base08 = "#b38686";
+      base09 = "#d8bba2";
+      base0A = "#aab386";
+      base0B = "#87b386";
+      base0C = "#86b3b3";
+      base0D = "#868cb3";
+      base0E = "#b386b2";
+      base0F = "#b39f9f";
     };
 
     sanitizeColor = color:
