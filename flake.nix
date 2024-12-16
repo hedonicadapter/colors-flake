@@ -12,9 +12,9 @@
   }: let
     colors = {
       base00 = "#000000";
-      base01 = "#0c0c0c";
-      base02 = "#131313";
-      base03 = "#262626";
+      base01 = "#252525";
+      base02 = "#333333";
+      base03 = "#3a3a3a";
       base04 = "#504d47";
       base05 = "#f5dcbc";
       base06 = "#ffbb00";
