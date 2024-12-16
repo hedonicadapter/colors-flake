@@ -49,9 +49,9 @@
         rgb = nix-colors.lib.conversions.hexToRGB cleanColor;
 
         darken = c: let
-          darkenedValue = c - (c * percentage);
+          darkenedValue = c * (1 - percentage);
         in
-          builtins.floor darkenedValue;
+          builtins.floor (builtins.max 0 darkenedValue);
 
         darkenedRgb = {
           r = darken (builtins.elemAt rgb 0);
