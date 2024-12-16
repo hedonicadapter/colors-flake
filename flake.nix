@@ -43,25 +43,26 @@
         else hex;
     in "#${toHex r}${toHex g}${toHex b}";
 
-    darken = let
-      darkenColor = color: percentage: let
-        cleanColor = sanitizeColor color;
-        rgb = nix-colors.lib.conversions.hexToRGB cleanColor;
-
-        darken = c: let
-          darkenedValue = c * (1 - percentage);
-        in
-          builtins.floor (nixpkgs.lib.trivial.max 0 darkenedValue);
-
-        darkenedRgb = {
-          r = darken (builtins.elemAt rgb 0);
-          g = darken (builtins.elemAt rgb 1);
-          b = darken (builtins.elemAt rgb 2);
-        };
+    darken = color: percentage: let
+      cleanColor = sanitizeColor color;
+      rgb = nix-colors.lib.conversions.hexToRGB cleanColor;
+      darken = c: let
+        darkenedValue = c * (1 - percentage);
       in
-        rgbToHex darkenedRgb.r darkenedRgb.g darkenedRgb.b;
+        builtins.floor (
+          if darkenedValue < 0
+          then 0
+          else if darkenedValue > 255
+          then 255
+          else darkenedValue
+        );
+      darkenedRgb = {
+        r = darken (builtins.elemAt rgb 0);
+        g = darken (builtins.elemAt rgb 1);
+        b = darken (builtins.elemAt rgb 2);
+      };
     in
-      darkenColor;
+      rgbToHex darkenedRgb.r darkenedRgb.g darkenedRgb.b;
 
     transparentize = let
       addAlpha = color: alpha: let
