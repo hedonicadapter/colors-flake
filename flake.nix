@@ -51,7 +51,7 @@
         darken = c: let
           darkenedValue = c * (1 - percentage);
         in
-          builtins.floor (builtins.max 0 darkenedValue);
+          builtins.floor (nixpkgs.lib.trivial.max 0 darkenedValue);
 
         darkenedRgb = {
           r = darken (builtins.elemAt rgb 0);
