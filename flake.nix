@@ -11,22 +11,22 @@
     ...
   }: let
     colors = {
-      base00 = "#000000";
-      base01 = "#252525";
-      base02 = "#333333";
+      base00 = "#1a1a1a";
+      base01 = "#262626";
+      base02 = "#303030";
       base03 = "#3a3a3a";
-      base04 = "#504d47";
-      base05 = "#f5dcbc";
-      base06 = "#ffbb00";
-      base07 = "#ffebd1";
-      base08 = "#eb1b00";
-      base09 = "#ffbb00";
-      base0A = "#ffd45e";
-      base0B = "#00a824";
-      base0C = "#0bc2a3";
-      base0D = "#d857ad";
-      base0E = "#d31353";
-      base0F = "#ffbb00";
+      base04 = "#444444";
+      base05 = "#bcbcbc";
+      base06 = "#d7d7d7";
+      base07 = "#e4e4e4";
+      base08 = "#ff5f87";
+      base09 = "#ffaf00";
+      base0A = "#ffd700";
+      base0B = "#87ff00";
+      base0C = "#00d7af";
+      base0D = "#5fafff";
+      base0E = "#af87ff";
+      base0F = "#ff5f00";
     };
 
     sanitizeColor = color:
