@@ -11,14 +11,14 @@
     ...
   }: let
     colors = {
-      base00 = "#2B1208";
-      base01 = "#401B0C";
-      base02 = "#51240F";
-      base03 = "#632C12";
-      base04 = "#6F3215";
-      base05 = "#E9AA8B";
-      base06 = "#F2CDBA";
-      base07 = "#F5D8CC";
+      base00 = "#1B0E0E";
+      base01 = "#321A1A";
+      base02 = "#3F2121";
+      base03 = "#4D2727";
+      base04 = "#5A2E2E";
+      base05 = "#D1A5A5";
+      base06 = "#E2C6C6";
+      base07 = "#EAD7D7";
       base08 = "#94001b";
       base09 = "#a86500";
       base0A = "#A87E00";
