@@ -11,7 +11,7 @@
     ...
   }: let
     colors = {
-      base00 = "#1C1717";
+      base00 = "#1a1a1a";
       base01 = "#2C2020";
       base02 = "#382929";
       base03 = "#5A2E2E";
