@@ -28,7 +28,7 @@
       base0E = "#790239";
       base0F = "#a83800";
     };
-    colorTo0xAARRGGBB = color: alpha: let
+    hexColorTo0xAARRGGBB = color: alpha: let
       sanitizeColor = c:
         if builtins.substring 0 1 c == "#"
         then builtins.substring 1 (builtins.stringLength c - 1) c
@@ -122,6 +122,6 @@
     darken = darken;
     colors_opaque = colors_opaque;
     cssColorVariables = cssColorVariables;
-    hexColorTo0xAARRGGBB = colorTo0xAARRGGBB;
+    hexColorTo0xAARRGGBB = hexColorTo0xAARRGGBB;
   };
 }
