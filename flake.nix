@@ -28,6 +28,30 @@
       base0E = "#790239";
       base0F = "#a83800";
     };
+    colorTo0xAARRGGBB = color: alpha: let
+      sanitizeColor = c:
+        if builtins.substring 0 1 c == "#"
+        then builtins.substring 1 (builtins.stringLength c - 1) c
+        else c;
+
+      cleanColor = sanitizeColor color;
+
+      hexLength = builtins.stringLength cleanColor;
+
+      rr = builtins.substring 0 2 cleanColor;
+      gg = builtins.substring 2 2 cleanColor;
+      bb = builtins.substring 4 2 cleanColor;
+
+      alphaInt = builtins.floor (alpha * 255);
+
+      # Converts integer (0–255) to two-digit hex string
+      toHex = n: let
+        hex = builtins.toString (100 + n); # ensures at least 3 chars
+      in
+        builtins.substring (builtins.stringLength hex - 2) 2 hex;
+
+      aa = toHex alphaInt;
+    in "0x${aa}${rr}${gg}${bb}";
 
     sanitizeColor = color:
       if builtins.substring 0 1 color == "#"
@@ -98,5 +122,6 @@
     darken = darken;
     colors_opaque = colors_opaque;
     cssColorVariables = cssColorVariables;
+    hexColorTo0xAARRGGBB = colorTo0xAARRGGBB;
   };
 }
