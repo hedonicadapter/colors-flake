@@ -36,19 +36,18 @@
 
       cleanColor = sanitizeColor color;
 
-      hexLength = builtins.stringLength cleanColor;
-
       rr = builtins.substring 0 2 cleanColor;
       gg = builtins.substring 2 2 cleanColor;
       bb = builtins.substring 4 2 cleanColor;
 
       alphaInt = builtins.floor (alpha * 255);
 
-      # Converts integer (0–255) to two-digit hex string
+      digits = "0123456789abcdef";
       toHex = n: let
-        hex = builtins.toString (100 + n); # ensures at least 3 chars
+        hi = builtins.div n 16;
+        lo = n - (hi * 16);
       in
-        builtins.substring (builtins.stringLength hex - 2) 2 hex;
+        builtins.substring hi 1 digits + builtins.substring lo 1 digits;
 
       aa = toHex alphaInt;
     in "0x${aa}${rr}${gg}${bb}";
