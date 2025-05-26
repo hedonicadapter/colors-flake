@@ -10,7 +10,7 @@
     nix-colors,
     ...
   }: let
-    colors = builtins.fromJSON (builtins.readFile "~/.config/hedonicadapter/colors.json");
+    colors = builtins.fromJSON (builtins.readFile ~/.config/hedonicadapter/colors.json);
     hexColorTo0xAARRGGBB = color: alpha: let
       sanitizeColor = c:
         if builtins.substring 0 1 c == "#"
