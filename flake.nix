@@ -10,7 +10,7 @@
     nix-colors,
     ...
   }: let
-    colorsPath = builtins.getEnv "HOME" + "/.config/hedonicadapter/colors.json";
+    colorsPath = ~/.config/hedonicadapter/colors.json;
     colors = builtins.fromJSON (builtins.readFile colorsPath);
     hexColorTo0xAARRGGBB = color: alpha: let
       sanitizeColor = c:
