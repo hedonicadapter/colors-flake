@@ -10,24 +10,29 @@
     nix-colors,
     ...
   }: let
-    colors = {
-      base00 = "#171413";
-      base01 = "#2b2420";
-      base02 = "#382f29";
-      base03 = "#593e2e";
-      base04 = "#967b6b";
-      base05 = "#d1b5a5";
-      base06 = "#e3d2c8";
-      base07 = "#ebdfd8";
-      base08 = "#94001b";
-      base09 = "#a86500";
-      base0A = "#A87E00";
-      base0B = "#277A00";
-      base0C = "#247F94";
-      base0D = "#13578E";
-      base0E = "#790239";
-      base0F = "#a83800";
-    };
+    colorsFile = builtins.getEnv "HOME" + "/.config/hedonicadapter/colors.json";
+    colors =
+      if builtins.pathExists colorsFile
+      then builtins.fromJSON (builtins.readFile colorsFile)
+      else {
+        # Fallback colors if file doesn't exist
+        base00 = "#171413";
+        base01 = "#2b2420";
+        base02 = "#382f29";
+        base03 = "#593e2e";
+        base04 = "#967b6b";
+        base05 = "#d1b5a5";
+        base06 = "#e3d2c8";
+        base07 = "#ebdfd8";
+        base08 = "#94001b";
+        base09 = "#a86500";
+        base0A = "#A87E00";
+        base0B = "#277A00";
+        base0C = "#247F94";
+        base0D = "#13578E";
+        base0E = "#790239";
+        base0F = "#a83800";
+      };
     hexColorTo0xAARRGGBB = color: alpha: let
       sanitizeColor = c:
         if builtins.substring 0 1 c == "#"
