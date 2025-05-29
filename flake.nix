@@ -34,14 +34,26 @@
       then builtins.substring 1 (builtins.stringLength color - 1) color
       else color;
 
-    rgbToHex = r: g: b: let
-      toHex = x: let
-        hex = nixpkgs.lib.toHexString (builtins.floor x);
-      in
-        if builtins.stringLength hex == 1
-        then "0${hex}"
-        else hex;
-    in "#${toHex r}${toHex g}${toHex b}";
+    toHex = x: let
+      hex = nixpkgs.lib.toHexString (builtins.floor x);
+    in
+      if builtins.stringLength hex == 1
+      then "0${hex}"
+      else hex;
+
+    hexColorTo0xAARRGGBB = color: alpha: let
+      cleanColor = sanitizeColor color;
+
+      rr = builtins.substring 0 2 cleanColor;
+      gg = builtins.substring 2 2 cleanColor;
+      bb = builtins.substring 4 2 cleanColor;
+
+      alphaInt = builtins.floor (alpha * 255);
+
+      aa = toHex alphaInt;
+    in "0x${aa}${rr}${gg}${bb}";
+
+    rgbToHex = r: g: b: "#${toHex r}${toHex g}${toHex b}";
 
     darken = color: percentage: let
       cleanColor = sanitizeColor color;
@@ -98,5 +110,6 @@
     darken = darken;
     colors_opaque = colors_opaque;
     cssColorVariables = cssColorVariables;
+    hexColorTo0xAARRGGBB = hexColorTo0xAARRGGBB;
   };
 }
