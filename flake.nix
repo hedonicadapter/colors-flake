@@ -10,7 +10,7 @@
     nix-colors,
     ...
   }: let
-    colors = {
+    palette = {
       base00 = "#171413";
       base01 = "#2b2420";
       base02 = "#382f29";
@@ -28,31 +28,20 @@
       base0E = "#790239";
       base0F = "#a83800";
     };
+
     sanitizeColor = color:
       if builtins.substring 0 1 color == "#"
       then builtins.substring 1 (builtins.stringLength color - 1) color
       else color;
 
-    toHex = x: let
-      hex = nixpkgs.lib.toHexString (builtins.floor x);
-    in
-      if builtins.stringLength hex == 1
-      then "0${hex}"
-      else hex;
-
-    hexColorTo0xAARRGGBB = color: alpha: let
-      cleanColor = sanitizeColor color;
-
-      rr = builtins.substring 0 2 cleanColor;
-      gg = builtins.substring 2 2 cleanColor;
-      bb = builtins.substring 4 2 cleanColor;
-
-      alphaInt = builtins.floor (alpha * 255);
-
-      aa = toHex alphaInt;
-    in "0x${aa}${rr}${gg}${bb}";
-
-    rgbToHex = r: g: b: "#${toHex r}${toHex g}${toHex b}";
+    rgbToHex = r: g: b: let
+      toHex = x: let
+        hex = nixpkgs.lib.toHexString (builtins.floor x);
+      in
+        if builtins.stringLength hex == 1
+        then "0${hex}"
+        else hex;
+    in "#${toHex r}${toHex g}${toHex b}";
 
     darken = color: percentage: let
       cleanColor = sanitizeColor color;
@@ -90,25 +79,24 @@
     isOpaque = color:
       builtins.stringLength color == 7 && builtins.substring 0 1 color == "#";
 
-    colors_opaque = builtins.listToAttrs (
-      builtins.filter (x: isOpaque (builtins.getAttr x.name colors))
+    palette_opaque = builtins.listToAttrs (
+      builtins.filter (x: isOpaque (builtins.getAttr x.name palette))
       (builtins.map (name: {
           inherit name;
-          value = builtins.getAttr name colors;
+          value = builtins.getAttr name palette;
         })
-        (builtins.attrNames colors))
+        (builtins.attrNames palette))
     );
 
-    colorNames = builtins.attrNames colors;
+    colorNames = builtins.attrNames palette;
     cssColorVariables = builtins.concatStringsSep "\n" (
-      builtins.map (color: "--color-${color}: ${colors.${color}};") colorNames
+      builtins.map (color: "--color-${color}: ${palette.${color}};") colorNames
     );
   in {
-    colors = colors;
+    palette = palette;
+    palette_opaque = palette_opaque;
     transparentize = transparentize;
     darken = darken;
-    colors_opaque = colors_opaque;
     cssColorVariables = cssColorVariables;
-    hexColorTo0xAARRGGBB = hexColorTo0xAARRGGBB;
   };
 }
