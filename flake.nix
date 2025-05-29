@@ -28,6 +28,29 @@
       base0E = "#790239";
       base0F = "#a83800";
     };
+    hexColorTo0xAARRGGBB = color: alpha: let
+      sanitizeColor = c:
+        if builtins.substring 0 1 c == "#"
+        then builtins.substring 1 (builtins.stringLength c - 1) c
+        else c;
+
+      cleanColor = sanitizeColor color;
+
+      rr = builtins.substring 0 2 cleanColor;
+      gg = builtins.substring 2 2 cleanColor;
+      bb = builtins.substring 4 2 cleanColor;
+
+      alphaInt = builtins.floor (alpha * 255);
+
+      digits = "0123456789abcdef";
+      toHex = n: let
+        hi = builtins.div n 16;
+        lo = n - (hi * 16);
+      in
+        builtins.substring hi 1 digits + builtins.substring lo 1 digits;
+
+      aa = toHex alphaInt;
+    in "0x${aa}${rr}${gg}${bb}";
 
     sanitizeColor = color:
       if builtins.substring 0 1 color == "#"
