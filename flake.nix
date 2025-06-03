@@ -106,19 +106,12 @@
     );
 
     isDarkColor = color: let
-      sanitizeColor = color:
-        if builtins.substring 0 1 color == "#"
-        then builtins.substring 1 (builtins.stringLength color - 1) color
-        else color;
+      cleanColor = sanitizeColor color;
+      rgb = nix-colors.lib.conversions.hexToRGB cleanColor;
 
-      sanitizedColor = sanitizeColor color;
-
-      hexToRgbComponent = idx:
-        builtins.fromString (builtins.substring idx 2 sanitizedColor) / 255.0;
-
-      r = hexToRgbComponent 0;
-      g = hexToRgbComponent 2;
-      b = hexToRgbComponent 4;
+      r = rgb 0;
+      g = rgb 1;
+      b = rgb 2;
 
       luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
     in
