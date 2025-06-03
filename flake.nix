@@ -11,22 +11,22 @@
     ...
   }: let
     palette = {
-      base00 = "#171413";
-      base01 = "#2b2420";
-      base02 = "#382f29";
-      base03 = "#593e2e";
-      base04 = "#967b6b";
-      base05 = "#d1b5a5";
-      base06 = "#e3d2c8";
-      base07 = "#ebdfd8";
-      base08 = "#94001b";
-      base09 = "#a86500";
-      base0A = "#A87E00";
-      base0B = "#277A00";
-      base0C = "#247F94";
-      base0D = "#13578E";
-      base0E = "#790239";
-      base0F = "#a83800";
+      base00 = "#ebdfd8";
+      base01 = "#e3d2c8";
+      base02 = "#d1b5a5";
+      base03 = "#967b6b";
+      base04 = "#593e2e";
+      base05 = "#382f29";
+      base06 = "#2b2420";
+      base07 = "#171413";
+      base08 = "#a83800";
+      base09 = "#790239";
+      base0A = "#13578E";
+      base0B = "#247F94";
+      base0C = "#277A00";
+      base0D = "#A87E00";
+      base0E = "#a86500";
+      base0F = "#94001b";
     };
 
     sanitizeColor = color:
@@ -104,6 +104,25 @@
     cssColorVariables = builtins.concatStringsSep "\n" (
       builtins.map (color: "--color-${color}: ${palette.${color}};") colorNames
     );
+
+    isDarkColor = color: let
+      sanitizeColor = color:
+        if builtins.substring 0 1 color == "#"
+        then builtins.substring 1 (builtins.stringLength color - 1) color
+        else color;
+
+      sanitizedColor = sanitizeColor color;
+
+      hexToRgbComponent = idx:
+        builtins.fromString (builtins.substring idx 2 sanitizedColor) / 255.0;
+
+      r = hexToRgbComponent 0;
+      g = hexToRgbComponent 2;
+      b = hexToRgbComponent 4;
+
+      luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+    in
+      luminance < 0.5;
   in {
     palette = palette;
     palette_opaque = palette_opaque;
@@ -111,5 +130,6 @@
     darken = darken;
     cssColorVariables = cssColorVariables;
     hexColorTo0xAARRGGBB = hexColorTo0xAARRGGBB;
+    isDarkColor = isDarkColor;
   };
 }
