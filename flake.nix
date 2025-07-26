@@ -109,9 +109,9 @@
       cleanColor = sanitizeColor color;
       rgb = nix-colors.lib.conversions.hexToRGB cleanColor;
 
-      r = builtins.elemAt rgb 0;
-      g = builtins.elemAt rgb 1;
-      b = builtins.elemAt rgb 2;
+      r = builtins.elemAt rgb 0 / 255.0;
+      g = builtins.elemAt rgb 1 / 255.0;
+      b = builtins.elemAt rgb 2 / 255.0;
 
       luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
     in
